@@ -212,4 +212,20 @@ namespace SqlNotebook.Utils.SqlArrayUtil {
 
         return DataValue.for_text(buffer.str);
     }
+
+    public string string_join(DataValueBlob blob, string? separator) {
+        var count = SqlArrayUtil.get_count(blob);
+        var sb = new StringBuilder();
+
+        for (var i = 0; i < count; i++) {
+            if (separator != null && i > 0) {
+                sb.append(separator);
+            }
+
+            var element = get_element(blob, i);
+            sb.append(element.to_literal_string());
+        }
+
+        return sb.str;
+    }
 }

@@ -19,9 +19,9 @@ using SqlNotebook.Errors;
 using SqlNotebook.Utils;
 
 namespace SqlNotebook.Interpreter.ScalarFunctions.ArrayFunctions {
-    public class ArrayInsertFunction : ScalarFunction {
+    public class ArrayAppendFunction : ScalarFunction {
         public override string get_name() {
-            return "array_insert";
+            return "array_append";
         }
 
         public override int get_parameter_count() {
@@ -35,41 +35,24 @@ namespace SqlNotebook.Interpreter.ScalarFunctions.ArrayFunctions {
         public override DataValue execute(Gee.ArrayList<DataValue> args) throws RuntimeError {
             var name = get_name();
 
-            if (args.size < 3) {
-                throw new RuntimeError.WRONG_ARGUMENT_COUNT(@"$name: At least 3 arguments are required.");
+            if (args.size < 2) {
+                throw new RuntimeError.WRONG_ARGUMENT_COUNT(@"$name: At least 2 arguments are required.");
             }
 
-            var blob = ArgUtil.get_blob_arg(args[0], "array", name);
-            var insert_at_index = ArgUtil.get_int32_arg(args[1], "element-index", name);
-
-            if (!SqlArrayUtil.is_sql_array(blob)) {
-                throw new RuntimeError.WRONG_ARGUMENT_KIND(@"$name: The \"array\" argument is not an array.");
-            }
-
+            var blob = ArgUtil.get_blob_array_arg(args[0], "array", name);
             var old_count = SqlArrayUtil.get_count(blob);
-
-            if (insert_at_index < 0 || insert_at_index > old_count) {
-                throw new RuntimeError.ARGUMENT_OUT_OF_RANGE(
-                        @"$name: Argument \"element-index\" is out of range. The specified index is $insert_at_index but " +
-                        @"the array length is $old_count.");
-            }
-
-            var insert_count = args.size - 2;
+            var insert_count = args.size - 1;
             var new_count = old_count + insert_count;
 
             var elements = new DataValue[new_count];
             var index = 0;
 
-            for (var i = 0; i < insert_at_index; i++) {
+            for (var i = 0; i < old_count; i++) {
                 elements[index++] = SqlArrayUtil.get_element(blob, i);
             }
 
             for (var i = 0; i < insert_count; i++) {
-                elements[index++] = args[2 + i];
-            }
-
-            for (var i = insert_at_index; i < old_count; i++) {
-                elements[index++] = SqlArrayUtil.get_element(blob, i);
+                elements[index++] = args[1 + i];
             }
 
             return SqlArrayUtil.create_sql_array(new Gee.ArrayList<DataValue>.wrap(elements));

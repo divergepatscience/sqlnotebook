@@ -154,7 +154,7 @@ namespace SqlNotebook.Cli {
                 }
 
                 if (script_output.scalar_result.kind != DataValueKind.NULL) {
-                    stdout.printf("%s\n", format_value(script_output.scalar_result));
+                    stdout.printf("%s\n", script_output.scalar_result.to_string());
                     stdout.printf("\n");
                 }
 
@@ -178,7 +178,7 @@ namespace SqlNotebook.Cli {
             // scan the first 100 rows to get some reasonable column widths
             for (var row_index = 0; row_index < num_rows && row_index < 100; row_index++) {
                 for (var column_index = 0; column_index < num_cols; column_index++) {
-                    var str = format_value(table.get_value(row_index, column_index));
+                    var str = table.get_value(row_index, column_index).to_string();
                     if (str.length > column_widths[column_index]) {
                         column_widths[column_index] = str.length;
                     }
@@ -227,7 +227,7 @@ namespace SqlNotebook.Cli {
                         stdout.printf(" ");
                     }
 
-                    var str = format_value(table.get_value(row_index, column_index));
+                    var str = table.get_value(row_index, column_index).to_string();
                     stdout.printf(pad_string(str, column_widths[column_index] - 1));
                 }
             }
@@ -246,36 +246,6 @@ namespace SqlNotebook.Cli {
             } else {
                 return s;
             }
-        }
-
-        private static string format_value(DataValue data_value) {
-            string? result = null;
-
-            switch (data_value.kind) {
-                case DataValueKind.NULL:
-                    result = "(null)";
-                    break;
-
-                case DataValueKind.INTEGER:
-                    result = ("%" + int64.FORMAT_MODIFIER + "d").printf(data_value.integer_value);
-                    break;
-
-                case DataValueKind.REAL:
-                    result = "%f".printf(data_value.real_value);
-                    break;
-
-                case DataValueKind.TEXT:
-                    result = data_value.text_value.replace("\r\n", " ").replace("\r", " ").replace("\n", " ");
-                    break;
-
-                case DataValueKind.BLOB:
-                    // TODO: handle arrays
-                    result = "(blob, %d bytes)".printf(data_value.blob_value.bytes.length);
-                    break;
-            }
-
-            assert(result != null);
-            return result;
         }
     }
 }

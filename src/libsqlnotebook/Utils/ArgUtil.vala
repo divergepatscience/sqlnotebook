@@ -23,8 +23,9 @@ namespace SqlNotebook.Utils.ArgUtil {
             return arg.integer_value;
         } else {
             var actual_kind = arg.get_kind_name();
-            throw new RuntimeError.WRONG_ARGUMENT_KIND(@"The \"$param_name\" argument must be an INTEGER value, but " +
-                    @"type $actual_kind was provided.");
+            throw new RuntimeError.WRONG_ARGUMENT_KIND(
+                    @"$function_name: The \"$param_name\" argument must be an INTEGER value, but type $actual_kind " +
+                    @"was provided.");
         }
     }
 
@@ -32,7 +33,8 @@ namespace SqlNotebook.Utils.ArgUtil {
         var value64 = get_int_arg(arg, param_name, function_name);
         if (value64 < int32.MIN || value64 > int32.MAX) {
             throw new RuntimeError.WRONG_ARGUMENT_KIND(
-                    @"The \"$param_name\" argument is out of range.  A 32-bit INTEGER value is required.");
+                    @"$function_name: The \"$param_name\" argument is out of range.  A 32-bit INTEGER value " +
+                    @"is required.");
         }
 
         return (int32)value64;
@@ -45,8 +47,9 @@ namespace SqlNotebook.Utils.ArgUtil {
             return arg.integer_value;
         } else {
             var actual_kind = arg.get_kind_name();
-            throw new RuntimeError.WRONG_ARGUMENT_KIND(@"The \"$param_name\" argument must be a REAL value, but " +
-                    @"type $actual_kind was provided.");
+            throw new RuntimeError.WRONG_ARGUMENT_KIND(
+                    @"$function_name: The \"$param_name\" argument must be a REAL value, but type $actual_kind was " +
+                    @"provided.");
         }
     }
 
@@ -55,8 +58,31 @@ namespace SqlNotebook.Utils.ArgUtil {
             return arg.blob_value;
         } else {
             var actual_kind = arg.get_kind_name();
-            throw new RuntimeError.WRONG_ARGUMENT_KIND(@"The \"$param_name\" argument must be a BLOB value, but " +
-                    @"type $actual_kind was provided.");
+            throw new RuntimeError.WRONG_ARGUMENT_KIND(
+                    @"$function_name: The \"$param_name\" argument must be a BLOB value, but type $actual_kind " +
+                    @"was provided.");
+        }
+    }
+
+    public DataValueBlob get_blob_array_arg(DataValue arg, string param_name, string function_name) throws RuntimeError {
+        var blob = get_blob_arg(arg, param_name, function_name);
+        if (SqlArrayUtil.is_sql_array(blob)) {
+            return blob;
+        } else {
+            throw new RuntimeError.WRONG_ARGUMENT_KIND(
+                    @"$function_name: The \"$param_name\" argument must be an array value, but a non-array BLOB " +
+                    @"was provided.");
+        }
+    }
+
+    public string get_text_arg(DataValue arg, string param_name, string function_name) throws RuntimeError {
+        if (arg.kind == DataValueKind.TEXT) {
+            return arg.text_value;
+        } else {
+            var actual_kind = arg.get_kind_name();
+            throw new RuntimeError.WRONG_ARGUMENT_KIND(
+                    @"$function_name: The \"$param_name\" argument must be a TEXT value, but type $actual_kind " +
+                    @"was provided.");
         }
     }
 }

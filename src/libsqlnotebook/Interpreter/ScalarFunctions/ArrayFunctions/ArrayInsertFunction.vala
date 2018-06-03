@@ -39,13 +39,8 @@ namespace SqlNotebook.Interpreter.ScalarFunctions.ArrayFunctions {
                 throw new RuntimeError.WRONG_ARGUMENT_COUNT(@"$name: At least 3 arguments are required.");
             }
 
-            var blob = ArgUtil.get_blob_arg(args[0], "array", name);
+            var blob = ArgUtil.get_blob_array_arg(args[0], "array", name);
             var insert_at_index = ArgUtil.get_int32_arg(args[1], "element-index", name);
-
-            if (!SqlArrayUtil.is_sql_array(blob)) {
-                throw new RuntimeError.WRONG_ARGUMENT_KIND(@"$name: The \"array\" argument is not an array.");
-            }
-
             var old_count = SqlArrayUtil.get_count(blob);
 
             if (insert_at_index < 0 || insert_at_index > old_count) {

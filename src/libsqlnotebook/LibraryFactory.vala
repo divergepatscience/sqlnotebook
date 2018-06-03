@@ -57,9 +57,14 @@ namespace SqlNotebook {
 
             var scalar_functions = new Gee.ArrayList<ScalarFunction>();
             // ArrayFunctions
+            scalar_functions.add(new ArrayAppendFunction());
+            scalar_functions.add(new ArrayConcat1Function());
+            scalar_functions.add(new ArrayConcat2Function());
+            scalar_functions.add(new ArrayCountFunction());
             scalar_functions.add(new ArrayFunction());
             scalar_functions.add(new ArrayGetFunction());
             scalar_functions.add(new ArrayInsertFunction());
+            scalar_functions.add(new ArrayMergeFunction());
             scalar_functions.add(new ArraySetFunction());
             // MonadicMathFunctions
             scalar_functions.add(new AcosFunction());

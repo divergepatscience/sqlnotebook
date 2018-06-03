@@ -34,15 +34,11 @@ namespace SqlNotebook.Interpreter.ScalarFunctions.ArrayFunctions {
 
         public override DataValue execute(Gee.ArrayList<DataValue> args) throws RuntimeError {
             var name = get_name();
-            var blob = ArgUtil.get_blob_arg(args[0], "array", name);
+            var blob = ArgUtil.get_blob_array_arg(args[0], "array", name);
             var index = ArgUtil.get_int32_arg(args[1], "element-index", name);
             var value = args[2];
-
-            if (!SqlArrayUtil.is_sql_array(blob)) {
-                throw new RuntimeError.WRONG_ARGUMENT_KIND(@"$name: The \"array\" argument is not an array.");
-            }
-
             var count = SqlArrayUtil.get_count(blob);
+
             if (index < 0 || index >= count) {
                 throw new RuntimeError.ARGUMENT_OUT_OF_RANGE(
                         @"$name: Argument \"element-index\" is out of range. The specified index is $index but " +

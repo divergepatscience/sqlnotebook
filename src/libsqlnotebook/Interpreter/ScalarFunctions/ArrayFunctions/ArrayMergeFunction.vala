@@ -19,13 +19,13 @@ using SqlNotebook.Errors;
 using SqlNotebook.Utils;
 
 namespace SqlNotebook.Interpreter.ScalarFunctions.ArrayFunctions {
-    public class ArrayGetFunction : ScalarFunction {
+    public class ArrayMergeFunction : ScalarFunction {
         public override string get_name() {
-            return "array_get";
+            return "array_merge";
         }
 
         public override int get_parameter_count() {
-            return 2;
+            return -1;
         }
 
         public override bool is_deterministic() {
@@ -34,15 +34,29 @@ namespace SqlNotebook.Interpreter.ScalarFunctions.ArrayFunctions {
 
         public override DataValue execute(Gee.ArrayList<DataValue> args) throws RuntimeError {
             var name = get_name();
-            var blob = ArgUtil.get_blob_array_arg(args[0], "array", name);
-            var index = ArgUtil.get_int32_arg(args[1], "element-index", name);
-            var count = SqlArrayUtil.get_count(blob);
 
-            if (index < 0 || index >= count) {
-                return DataValue.for_null();
-            } else {
-                return SqlArrayUtil.get_element(blob, index);
+            if (args.size < 2) {
+                throw new RuntimeError.WRONG_ARGUMENT_COUNT(@"$name: At least 2 arguments are required.");
             }
+
+            var new_count = 0;
+            for (var i = 0; i < args.size; i++) {
+                var blob = ArgUtil.get_blob_array_arg(args[i], "array", name);
+                new_count += SqlArrayUtil.get_count(blob);
+            }
+
+            var elements = new DataValue[new_count];
+            var index = 0;
+
+            for (var i = 0; i < args.size; i++) {
+                var blob = ArgUtil.get_blob_array_arg(args[i], "array", name);
+                var count = SqlArrayUtil.get_count(blob);
+                for (var j = 0; j < count; j++) {
+                    elements[index++] = SqlArrayUtil.get_element(blob, j);
+                }
+            }
+
+            return SqlArrayUtil.create_sql_array(new Gee.ArrayList<DataValue>.wrap(elements));
         }
     }
 }

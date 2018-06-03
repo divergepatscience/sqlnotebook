@@ -15,6 +15,7 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 using Gee;
+using SqlNotebook.Utils;
 
 namespace SqlNotebook.Collections {
     public class DataValue : Object {
@@ -63,10 +64,14 @@ namespace SqlNotebook.Collections {
             return x;
         }
 
-        public string to_string() {
+        /**
+         * Converts the value into a "raw" string suitable for concatenation or other operations.
+         * @return String representation of the value
+         */
+        public string to_literal_string() {
             switch (kind) {
                 case DataValueKind.NULL:
-                    return "(null)";
+                    return "";
 
                 case DataValueKind.INTEGER:
                     return @"$integer_value";
@@ -78,11 +83,46 @@ namespace SqlNotebook.Collections {
                     return text_value;
 
                 case DataValueKind.BLOB:
-                    return "(blob)";
+                    return "";
+
+                default:
+                    assert(false);
+                    return "";
+            }
+        }
+
+        /**
+         * Converts the value into a descriptive string suitable for display in a grid.
+         * @return String representation of the value
+         */
+        public string to_string() {
+            switch (kind) {
+                case DataValueKind.NULL:
+                    return "(null)";
+
+                case DataValueKind.INTEGER:
+                    return ("%" + int64.FORMAT_MODIFIER + "d").printf(integer_value);
+
+                case DataValueKind.REAL:
+                    return "%f".printf(real_value);
+
+                case DataValueKind.TEXT:
+                    return text_value.replace("\r\n", " ").replace("\r", " ").replace("\n", " ");
+
+                case DataValueKind.BLOB:
+                    return blob_to_string();
 
                 default:
                     assert(false);
                     return "(unknown kind)";
+            }
+        }
+
+        private string blob_to_string() {
+            if (SqlArrayUtil.is_sql_array(blob_value)) {
+                return "[%s]".printf(SqlArrayUtil.string_join(blob_value, ", "));
+            } else {
+                return "(blob of %d bytes)".printf(blob_value.bytes.length);
             }
         }
 
