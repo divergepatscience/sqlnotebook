@@ -50,6 +50,7 @@ namespace SqlNotebook.Errors {
         SQLITE_DONE,
 
         // SQL Notebook errors
+        NOT_IMPLEMENTED,
         CANCELED,
         UNKNOWN_SCRIPT_NAME,
         ERROR_CREATING_TEMP_DIR,

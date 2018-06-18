@@ -34,6 +34,7 @@ namespace SqlNotebook.Tests {
         }
 
         public int failures = 0;
+        public int successes = 0;
         public string? single_test = null;
 
         protected void test(string name, TestAction action) {
@@ -44,9 +45,9 @@ namespace SqlNotebook.Tests {
             try {
                 test_pre();
                 action();
-                stdout.printf("[%s] %s = OK\n", get_name(), name);
+                successes++;
             } catch (Error e) {
-                stderr.printf("[%s] %s = FAIL\n", get_name(), name);
+                stderr.printf("FAIL: %s/%s\n", get_name(), name);
                 stderr.printf("\t%s\n", e.message);
                 failures++;
             } finally {

@@ -101,10 +101,10 @@ namespace SqlNotebook.Collections {
                     return "(null)";
 
                 case DataValueKind.INTEGER:
-                    return ("%" + int64.FORMAT_MODIFIER + "d").printf(integer_value);
+                    return @"$integer_value";
 
                 case DataValueKind.REAL:
-                    return "%f".printf(real_value);
+                    return @"$real_value";
 
                 case DataValueKind.TEXT:
                     return text_value.replace("\r\n", " ").replace("\r", " ").replace("\n", " ");

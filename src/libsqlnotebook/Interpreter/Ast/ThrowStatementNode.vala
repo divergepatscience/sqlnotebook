@@ -16,8 +16,7 @@
 
 namespace SqlNotebook.Interpreter.Ast {
     public class ThrowStatementNode : StatementNode {
-        // null means this is a rethrow
-        public ExpressionNode? message { get; set; }
+        public ExpressionNode message { get; set; }
 
         public ThrowStatementNode() {
             statement_type = StatementType.THROW;

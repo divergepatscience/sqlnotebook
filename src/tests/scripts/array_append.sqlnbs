@@ -1,0 +1,14 @@
+/*
+array_append passing one value
+[1, 2, 3, 4]
+array_append passing two values
+[1, 2, 3, 4, 5]
+*/
+
+DECLARE @a = ARRAY(1, 2, 3);
+
+PRINT 'array_append passing one value';
+PRINT ARRAY_APPEND(@a, 4);
+
+PRINT 'array_append passing two values';
+PRINT ARRAY_APPEND(@a, 4, 5);

@@ -322,30 +322,48 @@ namespace SqlNotebook.Interpreter {
         }
 
         private void execute_execute_statement(ExecuteStatementNode node, ScriptEnvironment env) throws RuntimeError {
+            throw new RuntimeError.NOT_IMPLEMENTED("not implemented");
         }
 
         private void execute_return_statement(ReturnStatementNode node, ScriptEnvironment env) throws RuntimeError {
+            if (node.value != null) {
+                env.output.scalar_result = evaluate_expression(node.value, env);
+            }
+
+            env.did_return = true;
         }
 
         private void execute_throw_statement(ThrowStatementNode node, ScriptEnvironment env) throws RuntimeError {
+            var error_message = evaluate_expression(node.message, env);
+            throw_error(error_message, env);
         }
 
         private void execute_rethrow_statement(RethrowStatementNode node, ScriptEnvironment env) throws RuntimeError {
+            env.did_throw = true;
         }
 
         private void execute_try_catch_statement(TryCatchStatementNode node, ScriptEnvironment env) throws RuntimeError {
+            execute_block(node.try_block, env);
+            if (env.did_throw) {
+                env.did_throw = false;
+                execute_block(node.catch_block, env);
+            }
         }
 
         private void execute_import_csv_statement(ImportCsvStatementNode node, ScriptEnvironment env) throws RuntimeError {
+            throw new RuntimeError.NOT_IMPLEMENTED("not implemented");
         }
 
         private void execute_import_xls_statement(ImportXlsStatementNode node, ScriptEnvironment env) throws RuntimeError {
+            throw new RuntimeError.NOT_IMPLEMENTED("not implemented");
         }
 
         private void execute_import_txt_statement(ImportTxtStatementNode node, ScriptEnvironment env) throws RuntimeError {
+            throw new RuntimeError.NOT_IMPLEMENTED("not implemented");
         }
 
         private void execute_export_txt_statement(ExportTxtStatementNode node, ScriptEnvironment env) throws RuntimeError {
+            throw new RuntimeError.NOT_IMPLEMENTED("not implemented");
         }
 
         public int64 evaluate_expression_integer(ExpressionNode node, ScriptEnvironment env) throws RuntimeError {
@@ -399,6 +417,11 @@ namespace SqlNotebook.Interpreter {
                 var message = "Evaluation of expression \"" + node.sql + "\" did not produce a value.";
                 throw new RuntimeError.INVALID_SCRIPT_OPERATION(message);
             }
+        }
+
+        private void throw_error(DataValue error_message, ScriptEnvironment env) {
+            env.error_message = error_message;
+            env.did_throw = true;
         }
     }
 }

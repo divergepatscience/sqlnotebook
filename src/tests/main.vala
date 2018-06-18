@@ -32,6 +32,7 @@ void main(string[] args) {
     // ---
 
     var failures = 0;
+    var successes = 0;
     foreach (var module in modules) {
         if (run_single_test) {
             if (module.get_name() == single_module) {
@@ -45,6 +46,7 @@ void main(string[] args) {
             module.module_pre();
             module.go();
             failures += module.failures;
+            successes += module.successes;
         } catch (Error e) {
             stderr.printf("Uncaught error in test harness. %s\n", e.message);
         } finally {
@@ -52,6 +54,7 @@ void main(string[] args) {
         }
     }
 
+    stderr.printf("Passed tests: %d\n", successes);
     if (failures > 0) {
         stderr.printf("Failed tests: %d\n", failures);
     }

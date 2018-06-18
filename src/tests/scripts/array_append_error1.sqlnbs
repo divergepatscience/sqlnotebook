@@ -1,0 +1,8 @@
+/*
+error
+*/
+
+DECLARE @a = ARRAY(1, 2, 3);
+
+-- array_append passing no values
+PRINT ARRAY_APPEND(@a);
