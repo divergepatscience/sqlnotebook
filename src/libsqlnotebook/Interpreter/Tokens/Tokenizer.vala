@@ -15,7 +15,7 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 using Gee;
-using Sqlite3Tokenizer;
+using SqlNotebook.Utils;
 
 namespace SqlNotebook.Interpreter.Tokens {
     public class Tokenizer : Object {
@@ -26,18 +26,18 @@ namespace SqlNotebook.Interpreter.Tokens {
 
             _lock.@lock();
             try {
-                sqlite3_tokenizer_start(input);
+                NativeSqliteTokenizerUtil.start(input);
 
-                while (sqlite3_tokenizer_next() != 0) {
-                    var token_type = sqlite3_tokenizer_get_token_type();
-                    var char_offset = sqlite3_tokenizer_get_token_char_offset();
-                    var char_length = sqlite3_tokenizer_get_token_char_length();
+                while (NativeSqliteTokenizerUtil.next() != 0) {
+                    var token_type = NativeSqliteTokenizerUtil.get_token_type();
+                    var char_offset = NativeSqliteTokenizerUtil.get_token_char_offset();
+                    var char_length = NativeSqliteTokenizerUtil.get_token_char_length();
                     var text = input.substring(char_offset, char_length);
                     var token = Token.for_token((TokenKind)token_type, text, char_offset, char_length);
                     list.add(token);
                 }
 
-                sqlite3_tokenizer_end();
+                NativeSqliteTokenizerUtil.end();
             } finally {
                 _lock.unlock();
             }

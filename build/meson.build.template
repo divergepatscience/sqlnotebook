@@ -62,12 +62,8 @@ libsqlite3_vapi = meson.get_compiler('vala').find_library(
     'sqlite3',
     dirs: join_paths(meson.current_source_dir(), 'ext/vapi'))
 
-libsqlite3_tokenizer_vapi = meson.get_compiler('vala').find_library(
-    'sqlite3_tokenizer',
-    dirs: join_paths(meson.current_source_dir(), 'src/libsqlite3'))
-
 libsqlite3_dep = declare_dependency(
-    dependencies: [libsqlite3_vapi, libsqlite3_tokenizer_vapi],
+    dependencies: [libsqlite3_vapi],
     link_with: libsqlite3_a,
     include_directories: include_directories('src/libsqlite3'))
 

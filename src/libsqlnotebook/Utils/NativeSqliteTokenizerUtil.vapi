@@ -15,28 +15,28 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 [CCode(cheader_filename = "sqlite3.h")]
-namespace Sqlite3Tokenizer {
+namespace SqlNotebook.Utils.NativeSqliteTokenizerUtil {
     // void sqlite3_tokenizer_start(const char* z);
     [CCode(cname = "sqlite3_tokenizer_start")]
-    int sqlite3_tokenizer_start(string z);
+    int start(string z);
 
     // int sqlite3_tokenizer_next();
     [CCode(cname = "sqlite3_tokenizer_next")]
-    int sqlite3_tokenizer_next();
+    int next();
 
     // int sqlite3_tokenizer_get_token_type();
     [CCode(cname = "sqlite3_tokenizer_get_token_type")]
-    int sqlite3_tokenizer_get_token_type();
+    int get_token_type();
 
     // int sqlite3_tokenizer_get_token_char_offset();
     [CCode(cname = "sqlite3_tokenizer_get_token_char_offset")]
-    int sqlite3_tokenizer_get_token_char_offset();
+    int get_token_char_offset();
 
     // int sqlite3_tokenizer_get_token_char_length();
     [CCode(cname = "sqlite3_tokenizer_get_token_char_length")]
-    int sqlite3_tokenizer_get_token_char_length();
+    int get_token_char_length();
 
     // void sqlite3_tokenizer_end();
     [CCode(cname = "sqlite3_tokenizer_end")]
-    void sqlite3_tokenizer_end();
+    void end();
 }
