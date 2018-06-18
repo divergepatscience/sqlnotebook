@@ -1,12 +1,23 @@
 diff --git a/ext/vapi/sqlite3.vapi b/ext/vapi/sqlite3.vapi
-index 9d0233a..97cd291 100644
+index cd331df..e051252 100644
 --- a/ext/vapi/sqlite3.vapi
 +++ b/ext/vapi/sqlite3.vapi
-@@ -165,6 +165,12 @@ namespace Sqlite {
+@@ -26,6 +26,10 @@ namespace Sqlite {
+ 	[Compact]
+ 	[CCode (free_function = "sqlite3_close", cname = "sqlite3", cprefix = "sqlite3_")]
+ 	public class Database {
++
++		// sqlnotebook
++		public static unowned string errstr(int result_code);
++
+ 		public int busy_timeout (int ms);
+ 		public int changes ();
+ 		[CCode (cname = "sqlite3_exec")]
+@@ -160,6 +164,12 @@ namespace Sqlite {
  	[CCode (cname = "sqlite3_callback", instance_pos = 0)]
  	public delegate int Callback (int n_columns, [CCode (array_length = false)] string[] values, [CCode (array_length = false)] string[] column_names);
  
-+	// added for sqlnotebook
++	// sqlnotebook
 +	[CCode (cname = "SQLITE_NOTICE")]
 +	public const int NOTICE;
 +	[CCode (cname = "SQLITE_WARNING")]
@@ -15,27 +26,32 @@ index 9d0233a..97cd291 100644
  	[CCode (cname = "SQLITE_OK")]
  	public const int OK;
  	[CCode (cname = "SQLITE_ERROR")]
-@@ -366,7 +372,10 @@ namespace Sqlite {
+@@ -361,7 +371,10 @@ namespace Sqlite {
  		[CCode (cname = "sqlite3_stmt_status")]
  		public int status (Sqlite.StatementStatus op, int resetFlg = 0);
  		public int step ();
 -		public int bind_blob (int index, void* value, int n, GLib.DestroyNotify? destroy_notify = null);
 +
-+		// edited for sqlnotebook
++		// sqlnotebook
 +		public int bind_blob (int index, owned uint8[] value, GLib.DestroyNotify destroy_notify = GLib.g_free);
 +
  		public int bind_double (int index, double value);
  		public int bind_int (int index, int value);
  		public int bind_int64 (int index, int64 value);
-@@ -376,7 +385,10 @@ namespace Sqlite {
+@@ -371,7 +384,10 @@ namespace Sqlite {
  		public int bind_text (int index, owned string value, int n = -1, GLib.DestroyNotify destroy_notify = GLib.g_free);
  		public int bind_value (int index, Value value);
  		public int bind_zeroblob (int index, int n);
 -		public void* column_blob (int col);
 +
-+		// edited for sqlnotebook
++		// sqlnotebook
 +		public unowned void* column_blob (int col);
 +
  		public int column_bytes (int col);
  		public double column_double (int col);
  		public int column_int (int col);
+@@ -454,4 +470,3 @@ namespace Sqlite {
+ 		public int pagecount ();
+ 	}
+ }
+-

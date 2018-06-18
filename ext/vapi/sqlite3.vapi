@@ -27,9 +27,8 @@ namespace Sqlite {
 	[CCode (free_function = "sqlite3_close", cname = "sqlite3", cprefix = "sqlite3_")]
 	public class Database {
 
-		// squint additions
+		// sqlnotebook
 		public static unowned string errstr(int result_code);
-		// end of squint additions
 
 		public int busy_timeout (int ms);
 		public int changes ();
@@ -165,7 +164,7 @@ namespace Sqlite {
 	[CCode (cname = "sqlite3_callback", instance_pos = 0)]
 	public delegate int Callback (int n_columns, [CCode (array_length = false)] string[] values, [CCode (array_length = false)] string[] column_names);
 
-	// added for sqlnotebook
+	// sqlnotebook
 	[CCode (cname = "SQLITE_NOTICE")]
 	public const int NOTICE;
 	[CCode (cname = "SQLITE_WARNING")]
@@ -373,7 +372,7 @@ namespace Sqlite {
 		public int status (Sqlite.StatementStatus op, int resetFlg = 0);
 		public int step ();
 
-		// edited for sqlnotebook
+		// sqlnotebook
 		public int bind_blob (int index, owned uint8[] value, GLib.DestroyNotify destroy_notify = GLib.g_free);
 
 		public int bind_double (int index, double value);
@@ -386,7 +385,7 @@ namespace Sqlite {
 		public int bind_value (int index, Value value);
 		public int bind_zeroblob (int index, int n);
 
-		// edited for sqlnotebook
+		// sqlnotebook
 		public unowned void* column_blob (int col);
 
 		public int column_bytes (int col);
