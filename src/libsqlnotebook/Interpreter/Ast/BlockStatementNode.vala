@@ -22,7 +22,7 @@ namespace SqlNotebook.Interpreter.Ast {
             statement_type = StatementType.BLOCK;
         }
 
-        protected override Node? get_child() {
+        protected override AstNode? get_child() {
             return block;
         }
     }

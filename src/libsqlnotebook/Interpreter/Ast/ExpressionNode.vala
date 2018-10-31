@@ -15,11 +15,11 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 namespace SqlNotebook.Interpreter.Ast {
-    public class ExpressionNode : Node {
+    public class ExpressionNode : AstNode {
         public string sql { get; set; }
         public SqliteSyntaxProductionNode sqlite_syntax { get; set; }
 
-        protected override Node? get_child() {
+        protected override AstNode? get_child() {
             return sqlite_syntax;
         }
     }

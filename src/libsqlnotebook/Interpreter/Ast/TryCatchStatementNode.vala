@@ -23,8 +23,8 @@ namespace SqlNotebook.Interpreter.Ast {
             statement_type = StatementType.TRY_CATCH;
         }
 
-        protected override Node?[] get_children() {
-            return new Node?[] { try_block, catch_block };
+        protected override AstNode?[] get_children() {
+            return new AstNode?[] { try_block, catch_block };
         }
     }
 }

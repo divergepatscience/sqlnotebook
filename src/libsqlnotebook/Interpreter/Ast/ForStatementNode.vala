@@ -26,8 +26,8 @@ namespace SqlNotebook.Interpreter.Ast {
             statement_type = StatementType.FOR;
         }
 
-        protected override Node?[] get_children() {
-            return new Node?[] { first_number, last_number, step, block };
+        protected override AstNode?[] get_children() {
+            return new AstNode?[] { first_number, last_number, step, block };
         }
     }
 }

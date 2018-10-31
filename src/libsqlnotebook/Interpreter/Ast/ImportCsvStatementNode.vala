@@ -24,8 +24,8 @@ namespace SqlNotebook.Interpreter.Ast {
             statement_type = StatementType.IMPORT_CSV;
         }
 
-        protected override Node?[] get_children() {
-            return new Node?[] { file_path, import_table, options_list };
+        protected override AstNode?[] get_children() {
+            return new AstNode?[] { file_path, import_table, options_list };
         }
     }
 }

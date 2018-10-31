@@ -15,7 +15,7 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 namespace SqlNotebook.Interpreter.Ast {
-    public abstract class StatementNode : Node {
+    public abstract class StatementNode : AstNode {
         public StatementType statement_type;
     }
 }

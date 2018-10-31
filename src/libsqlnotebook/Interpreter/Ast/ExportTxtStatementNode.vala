@@ -24,8 +24,8 @@ namespace SqlNotebook.Interpreter.Ast {
             statement_type = StatementType.EXPORT_TXT;
         }
 
-        protected override Node?[] get_children() {
-            return new Node?[] { file_path, select_statement, options_list };
+        protected override AstNode?[] get_children() {
+            return new AstNode?[] { file_path, select_statement, options_list };
         }
     }
 }

@@ -26,8 +26,8 @@ namespace SqlNotebook.Interpreter.Ast {
             statement_type = StatementType.IMPORT_TXT;
         }
 
-        protected override Node?[] get_children() {
-            return new Node?[] { file_path, table_name, line_number_column_name, text_column_name, options_list };
+        protected override AstNode?[] get_children() {
+            return new AstNode?[] { file_path, table_name, line_number_column_name, text_column_name, options_list };
         }
     }
 }

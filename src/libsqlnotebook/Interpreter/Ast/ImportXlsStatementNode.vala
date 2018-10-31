@@ -25,8 +25,8 @@ namespace SqlNotebook.Interpreter.Ast {
             statement_type = StatementType.IMPORT_XLS;
         }
 
-        protected override Node?[] get_children() {
-            return new Node?[] { file_path, which_sheet, import_table, options_list };
+        protected override AstNode?[] get_children() {
+            return new AstNode?[] { file_path, which_sheet, import_table, options_list };
         }
     }
 }

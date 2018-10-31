@@ -22,7 +22,7 @@ namespace SqlNotebook.Interpreter.Ast {
             statement_type = StatementType.THROW;
         }
 
-        protected override Node? get_child() {
+        protected override AstNode? get_child() {
             return message;
         }
     }

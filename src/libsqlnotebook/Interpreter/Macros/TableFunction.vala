@@ -14,14 +14,13 @@
 // OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-namespace SqlNotebook.Interpreter.Ast {
-    public class ImportColumnNode : AstNode {
-        public IdentifierOrExpressionNode column_name { get; set; }
-        public IdentifierOrExpressionNode? alias { get; set; }
-        public TypeConversion? type_conversion { get; set; }
+using SqlNotebook.Errors;
+using SqlNotebook.Interpreter.Ast;
 
-        protected override AstNode?[] get_children() {
-            return new AstNode?[] { column_name, alias };
-        }
+namespace SqlNotebook.Interpreter.Macros {
+    public abstract class TableFunction : Object {
+        public abstract string get_name();
+        public abstract int get_parameter_count();
+        public abstract void apply(SqlStatementNode statement, SqliteSyntaxProductionNode call) throws RuntimeError;
     }
 }

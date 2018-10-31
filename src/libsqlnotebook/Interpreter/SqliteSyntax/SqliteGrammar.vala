@@ -1514,6 +1514,7 @@ namespace SqlNotebook.Interpreter.SqliteSyntax {
             top_prod(p, 1, new SpecTerm[] {
                 or_prods(new SpecProd[] {
                     prod(@"$p.table-function-call", 3, new SpecTerm[] {
+                        // TableFunctionsMacro requires that table-function-name be the first child of table-function-call
                         sub_prod_premade(prod(@"$p.table-function-name", 2, new SpecTerm[] {
                             opt_all(new SpecTerm[] {
                                 id("database name"),
@@ -1522,6 +1523,7 @@ namespace SqlNotebook.Interpreter.SqliteSyntax {
                             id("table function name")
                         })),
                         tok(TokenKind.LP),
+                        // TableFunctionsMacro requires that the arguments list be the third child of table-function-call
                         lst(@"$p.arg", TokenKind.COMMA, 0, new SpecTerm[] {
                             sub_prod("expr")
                         }),

@@ -24,8 +24,8 @@ namespace SqlNotebook.Interpreter.Ast {
             statement_type = StatementType.IF;
         }
 
-        protected override Node?[] get_children() {
-            return new Node?[] { condition, block, else_block };
+        protected override AstNode?[] get_children() {
+            return new AstNode?[] { condition, block, else_block };
         }
     }
 }

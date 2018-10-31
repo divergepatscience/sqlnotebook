@@ -19,7 +19,7 @@ namespace SqlNotebook.Interpreter.Ast {
         public string variable_name { get; set; }
         public ExpressionNode? initial_value { get; set; }
 
-        protected override Node? get_child() {
+        protected override AstNode? get_child() {
             return initial_value;
         }
     }

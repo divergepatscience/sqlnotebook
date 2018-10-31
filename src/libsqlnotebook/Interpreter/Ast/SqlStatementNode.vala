@@ -27,10 +27,10 @@ namespace SqlNotebook.Interpreter.Ast {
             statement_type = StatementType.SQL;
         }
 
-        protected override Node?[] get_children() {
+        protected override AstNode?[] get_children() {
             var pre_count = pre_statements.size;
             var post_count = post_statements.size;
-            var array = new Node?[1 + pre_count + post_count];
+            var array = new AstNode?[1 + pre_count + post_count];
             var n = 0;
             array[n++] = sqlite_syntax;
             for (var i = 0; i < pre_count; i++) {

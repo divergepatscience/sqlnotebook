@@ -18,11 +18,11 @@ using Gee;
 using SqlNotebook.Utils;
 
 namespace SqlNotebook.Interpreter.Ast {
-    public class OptionsListNode : Node {
+    public class OptionsListNode : AstNode {
         public HashMap<string, ExpressionNode> options { get; set; }
 
-        protected override Node?[] get_children() {
-            return CollectionUtil.to_casted_array<ExpressionNode, Node?>(options.values);
+        protected override AstNode?[] get_children() {
+            return CollectionUtil.to_casted_array<ExpressionNode, AstNode?>(options.values);
         }
     }
 }

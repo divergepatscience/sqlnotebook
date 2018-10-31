@@ -18,7 +18,7 @@ using Gee;
 using SqlNotebook.Utils;
 
 namespace SqlNotebook.Interpreter.Ast {
-    public class SqliteSyntaxProductionNode : Node {
+    public class SqliteSyntaxProductionNode : AstNode {
         public string name { get; set; default = null; }
         public string text { get; set; default = null; }
         public int token_span_start_index { get; set; default = 0; }
@@ -29,8 +29,8 @@ namespace SqlNotebook.Interpreter.Ast {
             items = new ArrayList<SqliteSyntaxProductionNode>();
         }
 
-        protected override Node?[] get_children() {
-            return CollectionUtil.to_casted_array<SqliteSyntaxProductionNode, Node?>(items);
+        protected override AstNode?[] get_children() {
+            return CollectionUtil.to_casted_array<SqliteSyntaxProductionNode, AstNode?>(items);
         }
     }
 }

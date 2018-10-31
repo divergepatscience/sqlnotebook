@@ -14,13 +14,42 @@
 // OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-using Gee;
 using SqlNotebook.Collections;
 using SqlNotebook.Interpreter.Tokens;
 
 namespace SqlNotebook.Interpreter.Ast {
-    public abstract class Node : Object {
+    public abstract class AstNode : Object {
+        private static Gee.LinkedList<AstNode> _empty_node_linked_list = new Gee.LinkedList<AstNode>();
+
         public Token source_token { get; set; }
+        
+        public int child_count {
+            get {
+                if (is_leaf) {
+                    return 0;
+                } else if (get_child() != null) {
+                    return 1;
+                } else {
+                    return get_children().length;
+                }
+            }
+        }
+        
+        public AstNode? get_child_at(int index) {
+            if (index == 0) {
+                var child = get_child();
+                if (child != null) {
+                    return child;
+                }
+            }
+            
+            var children = get_children();
+            if (index < children.length) {
+                return children[index];
+            } else {
+                return null;
+            }
+        }
 
         // each node will implement only one of the following three:
 
@@ -32,23 +61,32 @@ namespace SqlNotebook.Interpreter.Ast {
         }
 
         // implemented if the node has exactly one child
-        protected virtual Node? get_child() {
+        protected virtual AstNode? get_child() {
             return null;
         }
 
         // implemented if the node has multiple children, or if the number of children is not known statically
-        protected virtual Node?[] get_children() {
-            return new Node?[0];
+        protected virtual AstNode?[] get_children() {
+            return new AstNode?[0];
         }
 
-        public LinkedList<Node> traverse() {
-            var result = new LinkedList<Node>();
-            var stack = new Stack<Node>();
+        public delegate bool FilterFunc<AstNode>(AstNode node);
+
+        public Gee.List<AstNode> find_nodes(FilterFunc<AstNode> filter_func) {
+            Gee.LinkedList<AstNode> result = null;
+            var stack = new Stack<AstNode>();
             stack.push(this);
 
             while (stack.any()) {
                 var n = stack.pop();
 
+                if (filter_func(n)) {
+                    if (result == null) {
+                        result = new Gee.LinkedList<AstNode>();
+                    }
+                    result.add(n);
+                }
+                
                 if (!n.is_leaf) {
                     var only_child = n.get_child();
                     if (only_child != null) {
@@ -63,11 +101,31 @@ namespace SqlNotebook.Interpreter.Ast {
                         }
                     }
                 }
-
-                result.add(n);
             }
 
-            return result;
+            return result ?? _empty_node_linked_list;
+        }
+        
+        public Gee.List<AstNode> find_nodes_bottom_up(FilterFunc<AstNode> filter_func) {
+            var nodes_top_down = find_nodes(filter_func);
+            if (nodes_top_down.size == 0) {
+                return _empty_node_linked_list;
+            }
+            
+            var nodes_bottom_up = new AstNode[nodes_top_down.size];
+            var i = nodes_top_down.size;
+            foreach (var node in nodes_top_down) {
+                nodes_bottom_up[--i] = node;
+            }
+            return new Gee.ArrayList<DataValue>.wrap(nodes_bottom_up);
+        }
+        
+        public AstNode? find_node(FilterFunc<AstNode> filter_func) {
+            foreach (var node in find_nodes(filter_func)) {
+                return node;
+            }
+            
+            return null;
         }
     }
 }

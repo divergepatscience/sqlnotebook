@@ -23,8 +23,8 @@ namespace SqlNotebook.Interpreter.Ast {
             statement_type = StatementType.WHILE;
         }
 
-        protected override Node?[] get_children() {
-            return new Node?[] { condition, block };
+        protected override AstNode?[] get_children() {
+            return new AstNode?[] { condition, block };
         }
     }
 }

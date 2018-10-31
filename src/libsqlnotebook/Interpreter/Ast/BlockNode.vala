@@ -20,11 +20,11 @@ using SqlNotebook.Interpreter.Tokens;
 using SqlNotebook.Utils;
 
 namespace SqlNotebook.Interpreter.Ast {
-    public class BlockNode : Node {
+    public class BlockNode : AstNode {
         public ArrayList<StatementNode> statements;
 
-        protected override Node?[] get_children() {
-            return CollectionUtil.to_casted_array<StatementNode, Node?>(statements);
+        protected override AstNode?[] get_children() {
+            return CollectionUtil.to_casted_array<StatementNode, AstNode?>(statements);
         }
     }
 }

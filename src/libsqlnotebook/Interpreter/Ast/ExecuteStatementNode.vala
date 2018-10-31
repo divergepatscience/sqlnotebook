@@ -27,8 +27,8 @@ namespace SqlNotebook.Interpreter.Ast {
             statement_type = StatementType.EXECUTE;
         }
 
-        protected override Node?[] get_children() {
-            return CollectionUtil.to_casted_array<ArgumentPairNode, Node?>(arguments);
+        protected override AstNode?[] get_children() {
+            return CollectionUtil.to_casted_array<ArgumentPairNode, AstNode?>(arguments);
         }
     }
 }

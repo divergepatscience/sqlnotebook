@@ -17,13 +17,13 @@
 using Gee;
 
 namespace SqlNotebook.Interpreter.Ast {
-    public class ImportTableNode : Node {
+    public class ImportTableNode : AstNode {
         public IdentifierOrExpressionNode table_name { get; set; }
         public ArrayList<ImportColumnNode> import_columns { get; set; }
 
-        protected override Node?[] get_children() {
+        protected override AstNode?[] get_children() {
             var import_columns_count = import_columns.size;
-            var array = new Node?[1 + import_columns_count];
+            var array = new AstNode?[1 + import_columns_count];
             var n = 0;
             array[n++] = table_name;
             for (var i = 0; i < import_columns_count; i++) {
