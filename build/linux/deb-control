@@ -1,6 +1,0 @@
-Package: sqlnotebook
-Version: 0.7.0
-Maintainer: Brian Luft
-Architecture: amd64
-Description: Tabular data exploration and manipulation tool powered by SQLite.
-Homepage: https://sqlnotebook.com

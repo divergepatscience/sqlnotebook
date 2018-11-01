@@ -1,3 +1,0 @@
-usr/bin/prog1?exe
-usr/bin/prog2?exe
-usr/bin/prog3?exe

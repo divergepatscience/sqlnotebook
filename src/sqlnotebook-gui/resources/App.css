@@ -1,9 +1,0 @@
-.app_window_document_area_background {
-    background-color: #FFFFFF;
-}
-.app_window_tabs_ctl > header.top > tabs > tab:checked {
-    background: #DBDBD9;
-}
-.app_window_side_tabs_ctl > header.top > tabs > tab:checked {
-    background: #DBDBD9;
-}

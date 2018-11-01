@@ -1,2 +1,0 @@
-usr/bin/user?exe
-usr/share/sublib/sublib.depmf

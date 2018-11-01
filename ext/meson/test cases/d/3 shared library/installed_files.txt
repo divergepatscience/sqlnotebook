@@ -1,2 +1,0 @@
-usr/bin/app_d?exe
-usr/lib/libstuff.so

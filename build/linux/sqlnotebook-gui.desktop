@@ -1,7 +1,0 @@
-[Desktop Entry]
-Name=SQL Notebook
-Exec=/opt/sqlnotebook/sqlnotebook-gui
-Icon=sqlnotebook-gui
-Type=Application
-Categories=Development;
-StartupWMClass=SQL Notebook

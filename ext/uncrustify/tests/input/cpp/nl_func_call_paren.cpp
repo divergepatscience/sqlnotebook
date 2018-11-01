@@ -1,4 +1,0 @@
-SomeFunction(
-	someVar,
-	someOtherVar,
-	);

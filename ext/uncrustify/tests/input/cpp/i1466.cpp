@@ -1,1 +1,0 @@
-A a = {this->r * cos(b)};
