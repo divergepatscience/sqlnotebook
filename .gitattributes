@@ -2,8 +2,12 @@
 *.json text eol=lf
 *.js text eol=lf
 *.html text eol=lf
+*.md text eol=lf
 *.css text eol=lf
 *.txt text eol=lf
+*.cs text eol=lf
+*.csproj text eol=lf
+*.ps1 text eol=lf
 *.png binary
 *.bmp binary
 *.ico binary
