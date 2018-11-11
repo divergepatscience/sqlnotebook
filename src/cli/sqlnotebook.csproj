@@ -5,8 +5,4 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.Data.SQLite" Version="2.1.0" />
-  </ItemGroup>
-
 </Project>

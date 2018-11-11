@@ -1,2 +1,6 @@
 obj/
 bin/
+node_modules/
+/_windows64/
+
+/src/electron/content/

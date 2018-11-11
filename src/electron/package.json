@@ -1,0 +1,16 @@
+{
+  "name": "sqlnotebook-gui",
+  "private": true,
+  "version": "1.0.0",
+  "description": "SQL Notebook",
+  "main": "main.js",
+  "scripts": {
+    "start": "bash -c \"electron .\""
+  },
+  "repository": "",
+  "author": "Brian Luft",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^3.0.4"
+  }
+}

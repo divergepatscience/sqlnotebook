@@ -1,0 +1,24 @@
+{
+  "name": "gui",
+  "version": "0.1.0",
+  "private": true,
+  "homepage": ".",
+  "dependencies": {
+    "react": "^16.6.1",
+    "react-dom": "^16.6.1",
+    "react-scripts-ts": "3.1.0"
+  },
+  "scripts": {
+    "start": "react-scripts-ts start",
+    "build": "react-scripts-ts build",
+    "format": "prettier --print-width 120 --tab-width 4 --single-quote --write \"{src/**,public/**,.,../electron}/*.{js,jsx,ts,tsx,css}\" && prettier --print-width 120 --tab-width 2 --write \"{src/**,public/**,.,../electron}/*.json\""
+  },
+  "devDependencies": {
+    "@types/jest": "^23.3.9",
+    "@types/node": "^10.12.5",
+    "@types/react": "^16.7.2",
+    "@types/react-dom": "^16.0.9",
+    "prettier": "^1.15.2",
+    "typescript": "^3.1.6"
+  }
+}

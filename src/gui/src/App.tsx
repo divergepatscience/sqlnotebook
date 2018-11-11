@@ -14,12 +14,25 @@
 // OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-using Microsoft.Data.Sqlite;
-using System;
+import * as React from 'react';
+import './App.css';
 
-namespace SqlNotebook {
-    public static class Program {
-        public static void Main(string[] args) {
-        }
+import logo from './logo.svg';
+
+class App extends React.Component {
+    public render() {
+        return (
+            <div className="App">
+                <header className="App-header">
+                    <img src={logo} className="App-logo" alt="logo" />
+                    <h1 className="App-title">Welcome to React</h1>
+                </header>
+                <p className="App-intro">
+                    To get started, edit <code>src/App.tsx</code> and save to reload.
+                </p>
+            </div>
+        );
     }
 }
+
+export default App;
