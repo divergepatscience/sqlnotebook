@@ -1,4 +1,4 @@
-#Requires -Version 5
+#Requires -Version 5.1
 $ErrorActionPreference = "Stop"
 Set-StrictMode -Version 2.0
 
@@ -17,6 +17,10 @@ function Format-Ps1Files {
 
 function Format-CsFiles {
     $dir = $PSScriptRoot
+    $uncrustifyZip = (Resolve-Path (Join-Path $dir '..\..\ext\uncrustify\uncrustify.zip')).Path
+    $uncrustifyDir = (Resolve-Path (Join-Path $dir '..\..\ext\uncrustify')).Path
+    Expand-Archive $uncrustifyZip -DestinationPath $uncrustifyDir
+
     $uncrustifyExe = (Resolve-Path (Join-Path $dir '..\..\ext\uncrustify\uncrustify.exe')).Path
     $uncrustifyCfg = (Resolve-Path (Join-Path $dir 'uncrustify.cfg')).Path
 
