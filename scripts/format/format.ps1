@@ -19,9 +19,11 @@ function Format-CsFiles {
     $dir = $PSScriptRoot
     $uncrustifyZip = (Resolve-Path (Join-Path $dir '..\..\ext\uncrustify\uncrustify.zip')).Path
     $uncrustifyDir = (Resolve-Path (Join-Path $dir '..\..\ext\uncrustify')).Path
-    Expand-Archive $uncrustifyZip -DestinationPath $uncrustifyDir
-
     $uncrustifyExe = (Resolve-Path (Join-Path $dir '..\..\ext\uncrustify\uncrustify.exe')).Path
+    if (-not (Test-Path $uncrustifyExe)) {
+        Expand-Archive $uncrustifyZip -DestinationPath $uncrustifyDir
+    }
+
     $uncrustifyCfg = (Resolve-Path (Join-Path $dir 'uncrustify.cfg')).Path
 
     $srcDir = (Resolve-Path (Join-Path $dir '..\..\src\cli')).Path

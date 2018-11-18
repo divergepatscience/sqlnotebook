@@ -6,7 +6,7 @@ $root = (Resolve-Path (Join-Path $PSScriptRoot '../')).Path
 
 Write-Output ""
 $timestamp = [System.DateTime]::Now.ToString()
-Write-Output ("### " + $timestamp + " ").PadRight(80, '#')
+Write-Output ("### " + $timestamp + " ").PadRight(80,'#')
 
 Write-Output "--- src/electron ---------------------------------------------------------------"
 Push-Location (Join-Path $root 'src/electron')
@@ -53,5 +53,5 @@ try {
 }
 
 $timestamp = [System.DateTime]::Now.ToString()
-Write-Output ("### " + $timestamp + " ").PadRight(80, '#')
+Write-Output ("### " + $timestamp + " ").PadRight(80,'#')
 Write-Output ""

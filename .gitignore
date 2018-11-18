@@ -1,7 +1,8 @@
 *.exe
 obj/
 bin/
+web-temp/
+web-build/
 node_modules/
 /_windows64/
-
 /src/electron/content/

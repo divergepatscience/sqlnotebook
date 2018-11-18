@@ -10,7 +10,9 @@ $relativePaths = @(
     'src/electron/content',
     'src/electron/node_modules',
     'src/gui/build',
-    'src/gui/node_modules'
+    'src/gui/node_modules',
+    'web-build',
+    'web-temp'
 )
 
 foreach ($relativePath in $relativePaths) {

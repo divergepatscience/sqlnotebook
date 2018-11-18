@@ -16,3 +16,11 @@ function Run {
 function Clean {
     & (Resolve-Path (Join-Path $PSScriptRoot 'scripts/clean.ps1')).Path
 }
+
+function Web {
+    & (Resolve-Path (Join-Path $PSScriptRoot 'scripts/web.ps1')).Path
+}
+
+function RunWeb {
+    & (Resolve-Path (Join-Path $PSScriptRoot 'scripts/runweb.ps1')).Path
+}
